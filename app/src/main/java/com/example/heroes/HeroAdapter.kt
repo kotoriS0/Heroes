@@ -16,11 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 class HeroAdapter(val dataSet: List<Hero>) : RecyclerView.Adapter<HeroAdapter.ViewHolder>() {
 
     companion object {
-        val EXTRA_NAME = "heroName"
-        val EXTRA_DESC = "description"
-        val EXTRA_POWER = "superpower"
-        val EXTRA_RANK = "ranking"
-        val EXTRA_IMAGE = "image"
+        val EXTRA_HERO = "hero"
     }
 
     /**
@@ -62,11 +58,7 @@ class HeroAdapter(val dataSet: List<Hero>) : RecyclerView.Adapter<HeroAdapter.Vi
         viewHolder.layout.setOnClickListener {
             //Toast.makeText(it.context, hero.toString(), Toast.LENGTH_SHORT).show()
             val detailIntent = Intent(it.context, HeroDetailActivity::class.java)
-            detailIntent.putExtra(EXTRA_NAME, hero.name)
-            detailIntent.putExtra(EXTRA_DESC, hero.description)
-            detailIntent.putExtra(EXTRA_POWER, hero.superpower)
-            detailIntent.putExtra(EXTRA_IMAGE, hero.image)
-            detailIntent.putExtra(EXTRA_RANK, hero.ranking.toString())
+            detailIntent.putExtra(EXTRA_HERO, hero)
 
             it.context.startActivity(detailIntent)
         }

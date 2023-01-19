@@ -6,6 +6,7 @@ import android.os.Binder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.heroes.HeroAdapter.Companion.EXTRA_HERO
 import com.example.heroes.databinding.ActivityHeroDetailBinding
 
 class HeroDetailActivity : AppCompatActivity() {
@@ -17,16 +18,17 @@ class HeroDetailActivity : AppCompatActivity() {
         binding = ActivityHeroDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val name = intent.getStringExtra(HeroAdapter.EXTRA_NAME) ?: ""
-        val description = intent.getStringExtra(HeroAdapter.EXTRA_DESC) ?: ""
-        val power = intent.getStringExtra(HeroAdapter.EXTRA_POWER) ?: ""
-        val ranking = intent.getStringExtra(HeroAdapter.EXTRA_RANK) ?: ""
-        val image = intent.getStringExtra(HeroAdapter.EXTRA_IMAGE) ?: ""
+        val hero = intent?.getParcelableExtra<Hero>(EXTRA_HERO)
+        val name = hero?.name
+        val description = hero?.description
+        val power = hero?.superpower
+        val ranking = hero?.ranking
+        val image = hero?.image
 
         binding.textViewHeroDetailName.text = name
         binding.textViewHeroDetailDescription.text = description
         binding.textViewHeroDetailSuperpower.text = power
-        binding.textViewHeroDetailRank.text = ranking
+        binding.textViewHeroDetailRank.text = ranking.toString()
         val resourceId = resources.getIdentifier(image, "drawable", packageName)
         //Toast.makeText(this, resourceId.toString(), Toast.LENGTH_SHORT).show()
         binding.imageViewHeroDetailImage.setImageDrawable(resources.getDrawable(resourceId))

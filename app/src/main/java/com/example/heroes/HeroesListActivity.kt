@@ -14,8 +14,6 @@ class HeroesListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHeroesListBinding
     lateinit var adapter: HeroAdapter
 
-    lateinit var heroList: List<Hero>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHeroesListBinding.inflate(layoutInflater)
@@ -29,8 +27,13 @@ class HeroesListActivity : AppCompatActivity() {
 
         val gson = Gson()
         val sType = object : TypeToken<List<Hero>>() {}.type
-        heroList = gson.fromJson<List<Hero>>(jsonString, sType)
+        var heroList = gson.fromJson<List<Hero>>(jsonString, sType)
         Log.d(TAG, "list: $heroList")
+
+        heroList = heroList.sorted()
+//        heroList = heroList.sortedBy {
+//            it.name
+//        }
 
         // create adaptor and fill the recycler view
         adapter = HeroAdapter(heroList)
