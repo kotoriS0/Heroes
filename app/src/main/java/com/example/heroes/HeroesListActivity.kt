@@ -3,6 +3,10 @@ package com.example.heroes
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.heroes.databinding.ActivityHeroesListBinding
 import com.google.gson.Gson
@@ -31,9 +35,6 @@ class HeroesListActivity : AppCompatActivity() {
         Log.d(TAG, "list: $heroList")
 
         heroList = heroList.sorted()
-//        heroList = heroList.sortedBy {
-//            it.name
-//        }
 
         // create adaptor and fill the recycler view
         adapter = HeroAdapter(heroList)
@@ -41,5 +42,27 @@ class HeroesListActivity : AppCompatActivity() {
         binding.recyclerViewHeroesList.adapter = adapter
         // tell adapter what kind of layout (linear or grid)
         binding.recyclerViewHeroesList.layoutManager = LinearLayoutManager(this)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater : MenuInflater = menuInflater
+        inflater.inflate(R.menu.sort_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menuItem_name -> {
+                adapter.dataSet = adapter.dataSet.sortedBy { it.name }
+                adapter.notifyDataSetChanged()
+                true
+            }
+            R.id.menuItem_rank -> {
+                adapter.dataSet = adapter.dataSet.sorted()
+                adapter.notifyDataSetChanged()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

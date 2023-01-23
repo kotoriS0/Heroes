@@ -13,7 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 
-class HeroAdapter(val dataSet: List<Hero>) : RecyclerView.Adapter<HeroAdapter.ViewHolder>() {
+class HeroAdapter(var dataSet: List<Hero>) : RecyclerView.Adapter<HeroAdapter.ViewHolder>() {
 
     companion object {
         val EXTRA_HERO = "hero"
