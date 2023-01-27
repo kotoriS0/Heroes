@@ -52,13 +52,18 @@ class HeroesListActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.menuItem_rank -> {
+            adapter.dataSet = adapter.dataSet.sorted()
+            adapter.notifyDataSetChanged()
+            true
+            }
             R.id.menuItem_name -> {
                 adapter.dataSet = adapter.dataSet.sortedBy { it.name }
                 adapter.notifyDataSetChanged()
                 true
             }
-            R.id.menuItem_rank -> {
-                adapter.dataSet = adapter.dataSet.sorted()
+            R.id.menuItem_description -> {
+                adapter.dataSet = adapter.dataSet.sortedBy { it.description.length }
                 adapter.notifyDataSetChanged()
                 true
             }
